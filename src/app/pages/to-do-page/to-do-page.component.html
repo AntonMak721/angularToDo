@@ -1,0 +1,41 @@
+<section class="container flex justify-center gap-16 h-full font-serif w-full">
+  <div
+    class="flex flex-col justify-center items-center h-full w-96 bg-background"
+  >
+    <div class="mt-14">
+      <h1 class="mb-10 font-extrabold text-5xl text-center">ToDo App</h1>
+      <div class="flex flex-col justify-center items-center mb-10">
+        <h2 class="text-2xl font-bold mb-4">User</h2>
+        <app-user></app-user>
+        <app-newTaskForm></app-newTaskForm>
+      </div>
+      <app-modeSort></app-modeSort>
+    </div>
+    <button
+      (click)="authService.logout()"
+      class="flex justify-center items-center gap-3 bg-logout rounded-xl cursor-pointer py-4 px-20 mt-5 mb-5"
+      type="button"
+    >
+      <svg
+        width="19"
+        height="18"
+        viewBox="0 0 19 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.58 12.59L14.17 10H4.5V8H14.17L11.58 5.41L13 4L18 9L13 14L11.58 12.59ZM16.5 0C17.0304 0 17.5391 0.210714 17.9142 0.585786C18.2893 0.960859 18.5 1.46957 18.5 2V6.67L16.5 4.67V2H2.5V16H16.5V13.33L18.5 11.33V16C18.5 16.5304 18.2893 17.0391 17.9142 17.4142C17.5391 17.7893 17.0304 18 16.5 18H2.5C1.96957 18 1.46086 17.7893 1.08579 17.4142C0.710714 17.0391 0.5 16.5304 0.5 16V2C0.5 0.89 1.39 0 2.5 0H16.5Z"
+          fill="black"
+        />
+      </svg>
+      <span>Log out</span>
+    </button>
+  </div>
+
+  <div class="mt-14 w-96">
+    <h2 class="text-4xl font-bold text-center mb-16">Tasks</h2>
+    <div class="flex justify-center items-center gap-6 flex-col">
+      <app-tasks-list></app-tasks-list>
+    </div>
+  </div>
+</section>
