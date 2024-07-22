@@ -47,12 +47,12 @@ export class AuthService {
   }
 
 
-  logout() {
-    localStorage.setItem('token', '')
-    localStorage.setItem('firstName', '')
-    localStorage.setItem('lastName', '')
-    this.router.navigateByUrl('/login')
-  }
+  // logout() {
+  //   localStorage.setItem('token', '')
+  //   localStorage.setItem('firstName', '')
+  //   localStorage.setItem('lastName', '')
+  //   this.router.navigateByUrl('/login')
+  // }
 
   logoutNgRx() {
     return of(localStorage.setItem('token', ''))

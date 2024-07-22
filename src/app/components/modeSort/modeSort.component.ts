@@ -36,10 +36,7 @@ export class ModeSortComponent {
 }
 
 
-  // sortById(){
-  //   tasks.sort((a, b) => b.id - a.id);
-  //   console.log(tasks);
-  // }
+  
   sortById(){
     if(this.minToMax){
       tasks.sort((a, b) => b.id - a.id);

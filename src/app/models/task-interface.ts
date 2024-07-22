@@ -1,11 +1,12 @@
 export interface TaskInterface {
     id:number;
-    task: string;
+    todo: string;
     completed: boolean;
+    userID:number;
 }
 
 export const tasks:TaskInterface[] = [
-    {id:1,task : 'Do toDo app', completed: false},
-    {id:2,task : '30 min of cry', completed: true},
-    {id:3,task : 'Do something else', completed: false},
+    {id:1,todo : 'Do toDo app', completed: false,userID:1},
+    {id:2,todo: '30 min of cry', completed: true,userID:1},
+    {id:3,todo: 'Do something else', completed: false,userID:1},
   ]
