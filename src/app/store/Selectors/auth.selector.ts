@@ -10,7 +10,7 @@ export const selectUser = createSelector(selectAuthState, (state) => state.user)
 export const selectUserToken = createSelector(selectAuthState, (state) => state.user.token);
 export const selectUserFirstName = createSelector(selectAuthState, (state) => state.user.firstName);
 export const selectUserLastName = createSelector(selectAuthState, (state) => state.user.lastName);
-export const selectUserImg = createSelector(selectAuthState, (state) => state.user.img);
+export const selectUserImg = createSelector(selectAuthState, (state) => state.user.image);
 
 // export const selectToken = createSelector(
 //   selectLogin,

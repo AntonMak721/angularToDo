@@ -19,7 +19,7 @@ export const initialAuthState:AuthState = {
     username: '',
     token: '',
     password: '',
-    img: '',
+    image: '',
   },
 };
 
@@ -29,9 +29,9 @@ export const authReducer = createReducer(initialAuthState,
   on(AuthActionUnion.login, state =>({...state,isLoading:true})),
   on(AuthActionUnion.loginSuccess, (state,{payload})=>({...state,user:payload,isLogged: true,isLoading: false})),
   on(AuthActionUnion.loginFailure, (state,{error})=>({...state,error:error,isLoading: false})),
-  on(AuthActionUnion.logout,(state=>({...state,isLoading:true}))),
-  on(AuthActionUnion.logoutSuccess, (state)=>({...state,isLoading: false})),
-  on(AuthActionUnion.logoutFailure, (state,{error})=>({...state,error:error,isLoading: false})),
+  on(AuthActionUnion.logout,(state=>({...state,isLoading:false,isLogged:false}))),
+  // on(AuthActionUnion.logoutSuccess, (state)=>({...state,isLoading: false})),
+  // on(AuthActionUnion.logoutFailure, (state,{error})=>({...state,error:error,isLoading: false})),
 )
 
 

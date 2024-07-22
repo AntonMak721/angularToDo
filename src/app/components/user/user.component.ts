@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/Reducers/auth.reducer';
 import { UserInterface } from '../../models/user-interface';
 import { AsyncPipe, NgFor, NgIf, NgClass } from '@angular/common';
-import { selectUserFirstName } from '../../store/Selectors/auth.selector';
+import { selectUserFirstName,selectUserImg,selectUserLastName } from '../../store/Selectors/auth.selector';
 
 @Component({
   selector: 'app-user',
@@ -15,11 +15,14 @@ import { selectUserFirstName } from '../../store/Selectors/auth.selector';
 })
 export class UserComponent {
   firstName$: Observable<string>
-  
-   
+  lastName$: Observable<string>
+  userImg$: Observable<string>
 
   constructor(public store: Store<AuthState>) { 
-     this.firstName$= store.select(selectUserFirstName)
+     this.firstName$= store.select(selectUserFirstName);
+     this.lastName$= store.select(selectUserLastName);
+     this.userImg$= store.select(selectUserImg);
+
   }
   // firstName = localStorage.getItem('firstName');
   // lastName = localStorage.getItem('lastName');

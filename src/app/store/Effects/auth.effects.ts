@@ -47,20 +47,19 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionUnion.logout),
+        switchMap(() => {
+          return this.service.logoutNgRx().pipe(
+            map(() => {
+              this.router.navigateByUrl('login');
+            })
+          );         
+        })
+      ),
+    { dispatch: false }
+  );
 
-
-  // logout$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(AuthActionUnion.logout),
-  //       switchMap(() => {
-  //         return this.service.logout().pipe(
-  //           map(() => {
-  //             this.router.navigate(['login']);
-  //           })
-  //         );
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
 }

@@ -6,6 +6,9 @@ import { UserComponent } from '../../components/user/user.component';
 import { ModeSortComponent } from '../../components/modeSort/modeSort.component';
 import {AuthService} from '../../services/auth.service'
 import { AsyncPipe, NgFor, NgIf, NgClass } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import * as AuthActionUnion from '../../store/Actions/auth.actions';
 
 @Component({
   selector: 'app-to-do-page',
@@ -24,7 +27,12 @@ import { AsyncPipe, NgFor, NgIf, NgClass } from '@angular/common';
 })
 export class ToDoPageComponent {
   authService = inject(AuthService);
+  constructor(private store: Store, private router: Router) {
+    
 
- 
+  }
+  logout(){
+    this.store.dispatch(AuthActionUnion.logout())
+  }
 
 }

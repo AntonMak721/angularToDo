@@ -19,7 +19,7 @@ export class TaskService {
    http = inject(HttpClient);
    public tasks:TaskInterface[] = tasks;
 
-  private apiUrl = 'http://localhost:3000/';
+  private apiUrl = 'https://dummyjson.com/todos/user/';
 
   getTasks(): Observable<TaskInterface[]> {
     return this.http.get<TaskInterface[]>(this.apiUrl);
