@@ -1,8 +1,11 @@
-<section class="flex justify-center items-center gap-16 h-full font-serif w-full flex-col md:flex-row">
+<section
+  class="flex justify-center items-center gap-16 h-full font-serif w-full flex-col md:flex-row">
   <div
     class="flex flex-col justify-center items-center h-full w-full md:w-96 bg-background">
     <div class="mt-14">
-      <h1 class="mb-10 font-extrabold text-4xl md:text-5xl text-center">ToDo App</h1>
+      <h1 class="mb-10 font-extrabold text-4xl md:text-5xl text-center">
+        ToDo App
+      </h1>
       <div class="flex flex-col justify-center items-center mb-10">
         <h2 class="text-2xl font-bold mb-4">User</h2>
         <app-user></app-user>
@@ -12,7 +15,7 @@
     </div>
     <button
       (click)="logout()"
-      class="flex justify-center items-center gap-3 bg-logout rounded-xl cursor-pointer py-4 px-20 mt-5 mb-5 hover:bg-ButtonHoverOrFocus focus:bg-ButtonHoverOrFocus active:bg-ButtonActive "
+      class="flex justify-center items-center gap-3 bg-logout rounded-xl cursor-pointer py-4 px-20 mt-5 mb-5 hover:bg-ButtonHoverOrFocus focus:bg-ButtonHoverOrFocus active:bg-ButtonActive"
       type="button">
       <svg
         width="19"
