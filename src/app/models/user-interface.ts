@@ -6,5 +6,3 @@ export interface UserInterface {
   password: string;
   image: string;
 }
-
-
