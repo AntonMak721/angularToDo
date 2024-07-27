@@ -47,11 +47,17 @@ export const tasksReducer = createReducer(
     error: error,
     isLoading: false,
   })),
-  // on(TasksActionUnion.deleteTask, (state, { payload }) => ({
-  //   ...state,
-  //   tasks: payload,
-  //   isLoading: false,
-  // }))
+  on(TasksActionUnion.deleteTask, (state, { payload }) => ({
+    ...state,
+    tasks: state.tasks.filter(task => task.id!== payload),
+    isLoading: false,
+  })),
+  on(TasksActionUnion.markCompleteTask, (state, { payload }) => ({
+    ...state,
+    tasks: state.tasks.map(task => task.id!== payload? task : {...task,completed:!task.completed}),
+    isLoading: false,
+  }))
+
   // on(AuthActionUnion.logoutSuccess, (state)=>({...state,isLoading: false})),
   // on(AuthActionUnion.logoutFailure, (state,{error})=>({...state,error:error,isLoading: false})),
 );

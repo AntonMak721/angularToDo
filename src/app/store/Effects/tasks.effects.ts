@@ -54,14 +54,14 @@ export class TasksEffects {
     )
   ));
 
-  deleteTask$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteTask),
-    switchMap(({ payload }) =>
-      this.service.deleteTask(payload).pipe(
-        map(response => response)
-      )
-    )
-  ))
+  // deleteTask$ = createEffect(() => this.actions$.pipe(
+  //   ofType(deleteTask),
+  //   switchMap(({ payload }) =>
+  //     this.service.deleteTask(payload).pipe(
+  //       map(response => response)
+  //     )
+  //   )
+  // ))
 
   // updateTask$ = createEffect(() => this.actions$.pipe(
   //   ofType(updateTask),

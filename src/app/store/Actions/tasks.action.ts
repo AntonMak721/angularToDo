@@ -29,7 +29,11 @@ export const addTaskSuccess= createAction(
 );
 export const deleteTask = createAction(
   '[Task] Delete task',
-  props<{ payload: any }>()
+  props<{ payload: number}>()
+);
+export const markCompleteTask = createAction(
+  '[Task] Mark complete task',
+  props<{ payload: number}>()
 );
 
 export const tasksLoadingFailure = createAction(
