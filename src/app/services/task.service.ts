@@ -13,18 +13,21 @@ export class TaskService {
   http = inject(HttpClient);
   public tasks: TaskInterface[] = tasks;
 
-  private apiUrl = 'https://dummyjson.com/todos/';
+  apiUrl = 'https://dummyjson.com/todos/';
 
-  getTasks(id: number): Observable<TaskInterface[]> {
-    const url = `${this.apiUrl}user/${id}`;
-    return this.http.get<TaskInterface[]>(url);
+  // getTasks() {
+  //   return this.http.get<any>('https://dummyjson.com/todos/user/1')
+  // }
+
+  getTasks(id: any): Observable<TaskInterface[]> {
+    const idPayload= id.payload;
+    console.log(idPayload);
+    return this.http.get<any>(`${this.apiUrl}user/${idPayload}`).pipe(
+      map(response => response?.todos))
   }
-
   addTask(task: TaskInterface): Observable<TaskInterface> {
-    return this.http.post(`${this.apiUrl}login`, task).pipe(
-      map((response: any) => {
-        return response;
-      })
+    return this.http.post(`${this.apiUrl}add`, task).pipe(
+      map((response: any) => response)
     );
   }
 

@@ -1,5 +1,5 @@
 <section
-  class="flex justify-center items-center gap-16 h-full font-serif w-full flex-col md:flex-row">
+  class="flex justify-center items-center gap-4 md:gap-16 h-full font-serif w-full flex-col md:flex-row">
   <div
     class="flex flex-col justify-center items-center h-full w-full md:w-96 bg-background">
     <div class="mt-14">
@@ -8,7 +8,7 @@
       </h1>
       <div class="flex flex-col justify-center items-center mb-10">
         <h2 class="text-2xl font-bold mb-4">User</h2>
-        <app-user></app-user>
+        <app-user class="flex flex-col justify-center items-center"></app-user>
         <app-newTaskForm></app-newTaskForm>
       </div>
       <app-modeSort></app-modeSort>
@@ -31,8 +31,8 @@
     </button>
   </div>
 
-  <div class="md:mt-14 w-full md:w-96">
-    <h2 class="text-4xl font-bold text-center mb-16">Tasks</h2>
+  <div class="md:mt-14 w-full min-h-min md:w-96">
+    <h2 class="text-4xl font-bold text-center mb-2 md:mb-16">Tasks</h2>
     <div class="flex justify-center items-center gap-6 flex-col">
       <app-tasks-list class="mb-14 md:mb-0 w-full md:w-96"></app-tasks-list>
     </div>

@@ -14,6 +14,7 @@ export const initialAuthState: AuthState = {
   isLoading: false,
   error: '',
   user: {
+    UserId: 0,
     firstName: '',
     lastName: '',
     username: '',

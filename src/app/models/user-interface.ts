@@ -1,4 +1,5 @@
 export interface UserInterface {
+  UserId: number;
   firstName: string;
   lastName: string;
   username: string;

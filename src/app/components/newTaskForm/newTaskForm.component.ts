@@ -3,6 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskInterface, tasks } from '../../models/task-interface';
 import { TaskService } from '../../services/task.service';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import * as TaskActionsUnion from '../../store/Actions/tasks.action';
+import { Observable } from 'rxjs';
+import { TasksState } from '../../store/Reducers/tasks.reducer';
+import { selectALLTasks } from '../../store/Selectors/tasks.selector';
+import { selectUserID } from '../../store/Selectors/auth.selector';
 
 @Component({
   selector: 'app-newTaskForm',
@@ -19,8 +26,13 @@ export class NewTaskFormComponent {
   });
 
   taskService = inject(TaskService);
+  Tasks$: Observable<TaskInterface[]>;
+  UserID$: Observable<number>;
+  constructor(public store: Store<TasksState>) {
+    this.Tasks$ = this.store.select(selectALLTasks);
+    this.UserID$ = this.store.select(selectUserID);
+  }
 
-  constructor() {}
 
   public tasks: TaskInterface[] = tasks;
 
@@ -29,9 +41,12 @@ export class NewTaskFormComponent {
       todo: this.newTaskForm.value.newTask!,
       id: tasks.length + 1,
       completed: false,
-      userID: Number(localStorage.getItem('id')),
-    };
+      userId: Number(localStorage.getItem('id')),
+    }
     this.tasks.push(newTask);
-    this.newTaskForm.reset();
+
+    this.store.dispatch(TaskActionsUnion.addTask({payload: newTask}))
+    console.log(newTask)
+    this.newTaskForm.reset()
   }
 }

@@ -8,6 +8,8 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { AUTH_FEATURE_KEY, authReducer } from './store/Reducers/auth.reducer';
 import { AuthEffects } from './store/Effects/auth.effects';
+import { TASK_FEATURE_KEY, tasksReducer } from './store/Reducers/tasks.reducer';
+import { TasksEffects } from './store/Effects/tasks.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideStore({
       [AUTH_FEATURE_KEY]: authReducer,
+      [TASK_FEATURE_KEY]: tasksReducer,
     }),
     provideStoreDevtools({
       maxAge: 25,
@@ -26,5 +29,6 @@ export const appConfig: ApplicationConfig = {
       connectInZone: true,
     }),
     provideEffects(AuthEffects),
+    provideEffects(TasksEffects),
   ],
 };

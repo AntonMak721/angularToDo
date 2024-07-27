@@ -29,3 +29,7 @@ export const selectUserImg = createSelector(
   selectAuthState,
   state => state.user.image
 );
+export const selectUserID = createSelector(
+  selectAuthState,
+  state => state.user.UserId
+);

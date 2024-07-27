@@ -16,30 +16,42 @@ export const initialTasksState: TasksState = {
 
 export const TASK_FEATURE_KEY = 'task';
 
-export const authReducer = createReducer(
+export const tasksReducer = createReducer(
   initialTasksState,
-  on(TasksActionUnion.getAlltoDoById, (state, { payload }) => ({
+  on(TasksActionUnion.getAlltoDoById, state => ({
+    ...state,
+    isLoading: true,
+  })),
+  on(TasksActionUnion.getAlltoDoSuccess, (state, { payload }) => ({
     ...state,
     tasks: payload,
     isLoading: false,
   })),
-  on(TasksActionUnion.updateTask, (state, { payload }) => ({
-    ...state,
-    tasks: payload,
-    isLoading: false,
-  })),
+  on(TasksActionUnion.addTask, (state) => ({
+     ...state,
 
+     isLoading: true,
+   })),
+  // on(TasksActionUnion.addTaskSuccess, (state, { payload }) => ({
+  //   ...state,
+  //   tasks: payload,
+  //   isLoading: false,
+  // })),
+  // on(TasksActionUnion.updateTask, (state, { payload }) => ({
+  //   ...state,
+  //   tasks: payload,
+  //   isLoading: false,
+  // })),
   on(TasksActionUnion.tasksLoadingFailure, (state, { error }) => ({
     ...state,
     error: error,
     isLoading: false,
   })),
-
-  on(TasksActionUnion.deleteTask, (state, { payload }) => ({
-    ...state,
-    tasks: payload,
-    isLoading: false,
-  }))
+  // on(TasksActionUnion.deleteTask, (state, { payload }) => ({
+  //   ...state,
+  //   tasks: payload,
+  //   isLoading: false,
+  // }))
   // on(AuthActionUnion.logoutSuccess, (state)=>({...state,isLoading: false})),
   // on(AuthActionUnion.logoutFailure, (state,{error})=>({...state,error:error,isLoading: false})),
 );
