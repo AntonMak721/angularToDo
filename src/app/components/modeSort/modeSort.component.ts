@@ -3,6 +3,7 @@ import { AsyncPipe, NgFor, NgIf, NgClass } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { TaskInterface, tasks } from '../../models/task-interface';
 import { TaskService } from '../../services/task.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-modeSort',
@@ -13,33 +14,30 @@ import { TaskService } from '../../services/task.service';
 })
 export class ModeSortComponent {
   taskService = inject(TaskService);
+  store = inject(Store);
 
   constructor() {}
-
-  public tasks: TaskInterface[] = tasks;
-
-  activeButton = 'cloudOn';
+  activeButton = 'cloudOff';
   minToMax = true;
 
   setActiveButton(buttonId: string): void {
     this.activeButton = buttonId;
   }
-
-  isButtonActive(buttonId: string): boolean {
-    return this.activeButton === buttonId;
+  UserID = Number(localStorage.getItem('id'));
+  getOnlineTasks() {
+    this.store.dispatch(
+      {type:'[Task] Get all to do by id', payload: this.UserID}
+    )
   }
   sortByCompleted() {
-    const tasksNew = this.tasks.filter(function (task: TaskInterface) {
-      return task.completed;
-    });
-    console.log(tasksNew);
-    this.tasks = tasksNew;
+    this.store.dispatch({type:'[Task] Filter tasks by completed'})
   }
   sortById() {
+
     if (this.minToMax) {
-      this.tasks.sort((a, b) => b.id - a.id);
+      this.store.dispatch({type:'[Task] Filter tasks by id min to max'})
     } else {
-      this.tasks.sort((a, b) => a.id - b.id);
+      this.store.dispatch({type:'[Task] Filter tasks by id max to min'})
     }
   }
 }

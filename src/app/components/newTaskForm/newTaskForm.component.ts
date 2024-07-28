@@ -39,11 +39,11 @@ export class NewTaskFormComponent {
   onSubmitNewTask() {
     const newTask: TaskInterface = {
       todo: this.newTaskForm.value.newTask!,
-      id: tasks.length + 1,
+      id: Math.floor(Math.random() * 1000),
       completed: false,
       userId: Number(localStorage.getItem('id')),
     }
-    this.tasks.push(newTask);
+    // this.tasks.push(newTask);
 
     this.store.dispatch(TaskActionsUnion.addTask({payload: newTask}))
     console.log(newTask)

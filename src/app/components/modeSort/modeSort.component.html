@@ -27,6 +27,7 @@
         class="p-2 bg-button rounded-xl hover:bg-ButtonHoverOrFocus active:bg-ButtonActive"
         type="button"
         (click)="setActiveButton('cloudOn')"
+        (click)="getOnlineTasks()"
         [ngClass]="{
           'bg-button': activeButton === 'cloudOn',
           'bg-neutral-200': activeButton === 'cloudOff',

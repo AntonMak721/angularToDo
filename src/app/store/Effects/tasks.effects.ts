@@ -5,7 +5,14 @@ import { pipe } from 'rxjs';
 import { of } from 'rxjs';
 import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
-import {getAlltoDoSuccess, getAlltoDoById, tasksLoadingFailure,deleteTask, updateTask } from '../Actions/tasks.action';
+import {
+  getAlltoDoSuccess,
+  getAlltoDoById,
+  tasksLoadingFailure,
+  deleteTask,
+  updateTask,
+  addTask, addTaskSuccess,
+} from '../Actions/tasks.action';
 import {HttpClient} from '@angular/common/http';
 import { TaskInterface } from '../../models/task-interface';
 
@@ -48,7 +55,7 @@ export class TasksEffects {
     ofType('[Task] Add task'),
     switchMap(({ payload }) =>
       this.service.addTask(payload).pipe(
-        map(response => getAlltoDoById({ payload: response.userId })),
+        map(response => addTaskSuccess({ payload: response })),
         catchError(error => of(tasksLoadingFailure({ error })))
       )
     )

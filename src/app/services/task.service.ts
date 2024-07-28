@@ -21,13 +21,15 @@ export class TaskService {
 
   getTasks(id: any): Observable<TaskInterface[]> {
     const idPayload= id.payload;
-    console.log(idPayload);
     return this.http.get<any>(`${this.apiUrl}user/${idPayload}`).pipe(
       map(response => response?.todos))
   }
   addTask(task: TaskInterface): Observable<TaskInterface> {
     return this.http.post(`${this.apiUrl}add`, task).pipe(
-      map((response: any) => response)
+      map((response: any) => {
+        console.log(response);
+        return response}),
+
     );
   }
 
