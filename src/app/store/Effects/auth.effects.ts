@@ -37,7 +37,6 @@ export class AuthEffects {
         ofType(AuthActionUnion.loginSuccess),
         tap(async () => {
           await this.router.navigateByUrl('');
-
         })
       ),
     { dispatch: false }

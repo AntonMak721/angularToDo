@@ -16,4 +16,9 @@ export const loginFailure = createAction(
   props<{ error: string }>()
 );
 
+export const browserReload = createAction(
+  '[Auth] Browser reload',
+  props<{ payload: UserInterface }>()
+);
+
 export const logout = createAction('[Auth] Logout');

@@ -22,13 +22,14 @@ export class AuthService {
       map((response: any) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('id', response.id);
-
+        localStorage.setItem('userData', JSON.stringify(response));
+        console.log(response);
         return response;
       })
     );
   }
 
   logout() {
-    return of(localStorage.setItem('token', ''));
+    return of(localStorage.clear());
   }
 }
