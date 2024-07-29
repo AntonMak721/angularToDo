@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/Reducers/auth.reducer';
@@ -17,13 +17,10 @@ import {
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent {
-  firstName$: Observable<string>;
-  lastName$: Observable<string>;
-  userImg$: Observable<string>;
+  store = inject(Store);
+  constructor() {}
 
-  constructor(public store: Store<AuthState>) {
-    this.firstName$ = store.select(selectUserFirstName);
-    this.lastName$ = store.select(selectUserLastName);
-    this.userImg$ = store.select(selectUserImg);
-  }
+  firstName$ = this.store.select(selectUserFirstName);
+  lastName$ = this.store.select(selectUserLastName);
+  userImg$ = this.store.select(selectUserImg);
 }

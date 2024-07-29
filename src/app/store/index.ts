@@ -1,5 +1,5 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { AuthState, reducer as authReducer } from './Reducers/auth.reducer';
+import { AuthState, authReducer } from './Reducers/auth.reducer';
 import { tasksReducer, TasksState } from './Reducers/tasks.reducer';
 
 export interface State {

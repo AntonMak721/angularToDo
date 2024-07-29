@@ -10,6 +10,3 @@ export const selectALLTasks = createSelector(
   selectTasksState,
   state => state.tasks || []
 );
-// export const selectTaskID = createSelector(selectTasksState, state => state.tasks.id);
-// export const selectTaskText = createSelector(selectTasksState, state => state.tasks.todo);
-// export const selectTaskCompleted = createSelector(selectTasksState, state => state.tasks.completed);

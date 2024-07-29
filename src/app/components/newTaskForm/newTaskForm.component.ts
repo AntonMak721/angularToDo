@@ -33,7 +33,6 @@ export class NewTaskFormComponent {
     this.UserID$ = this.store.select(selectUserID);
   }
 
-
   public tasks: TaskInterface[] = tasks;
 
   onSubmitNewTask() {
@@ -42,11 +41,11 @@ export class NewTaskFormComponent {
       id: Math.floor(Math.random() * 1000),
       completed: false,
       userId: Number(localStorage.getItem('id')),
-    }
+    };
     // this.tasks.push(newTask);
 
-    this.store.dispatch(TaskActionsUnion.addTask({payload: newTask}))
-    console.log(newTask)
-    this.newTaskForm.reset()
+    this.store.dispatch(TaskActionsUnion.addTask({ payload: newTask }));
+    console.log(newTask);
+    this.newTaskForm.reset();
   }
 }

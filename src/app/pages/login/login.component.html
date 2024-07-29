@@ -54,6 +54,7 @@
     <div *ngIf="error">{{ error }}</div>
 
     <button
+      [disabled]="!this.loginForm.valid"
       class="flex justify-center items-center hover:bg-ButtonHoverOrFocus focus:bg-ButtonHoverOrFocus active:bg-ButtonActive bg-button rounded-xl cursor-pointer w-11/12 md:w-80 py-4 px-20"
       type="submit">
       Login

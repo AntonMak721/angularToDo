@@ -17,17 +17,18 @@ export class AuthService {
 
   baseURL = 'https://dummyjson.com/auth/';
 
-  loginNgRx(payload: { username: string; password: string }) {
+  login(payload: { username: string; password: string }) {
     return this.http.post(`${this.baseURL}login`, payload).pipe(
       map((response: any) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('id', response.id);
+
         return response;
       })
     );
   }
 
-  logoutNgRx() {
+  logout() {
     return of(localStorage.setItem('token', ''));
   }
 }

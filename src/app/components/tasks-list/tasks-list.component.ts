@@ -20,14 +20,13 @@ export class TasksListComponent {
   taskService = inject(TaskService);
   store = inject(Store);
   @Input() tasks: TaskInterface[];
-  constructor() {
-  }
+  constructor() {}
   // tasks$ = this.store.select(selectALLTasks)
   markComplete(id: number) {
-    this.store.dispatch({type:'[Task] Mark complete task', payload: id});
+    this.store.dispatch({ type: '[Task] Mark complete task', payload: id });
   }
   deleteTask(id: number) {
-    this.store.dispatch({type:'[Task] Delete task', payload: id});
+    this.store.dispatch({ type: '[Task] Delete task', payload: id });
   }
 
   edit(task: TaskInterface) {
@@ -36,14 +35,12 @@ export class TasksListComponent {
     // const updateTaskText = document.getElementById('task.id')?.innerHTML;
     const updateTaskText = document.getElementById(`${id}`)?.innerHTML;
     console.log(updateTaskText);
-    const newTask={
+    const newTask = {
       id: task.id,
       todo: updateTaskText,
       completed: task.completed,
       userId: task.userId,
-    }
-    this.store.dispatch({type:'[Task] Update task', payload: newTask})
-
+    };
+    this.store.dispatch({ type: '[Task] Update task', payload: newTask });
   }
-
 }

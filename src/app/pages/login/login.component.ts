@@ -7,6 +7,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
 import * as AuthActionUnion from '../../store/Actions/auth.actions';
+import { LoginDataInterface } from '../../models/loginData-interface';
 
 @Component({
   selector: 'app-login',
@@ -31,9 +32,9 @@ export class LoginComponent {
   error = '';
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
-      this.store.dispatch(
-        AuthActionUnion.login({ payload: this.loginForm.value })
-      );
+      const loginPayload = this.loginForm.value as LoginDataInterface;
+      this.store.dispatch(AuthActionUnion.login({ payload: loginPayload }));
+      console.log(loginPayload);
     }
   }
 }

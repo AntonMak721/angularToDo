@@ -19,7 +19,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActionUnion.login),
       switchMap(({ payload }) =>
-        this.service.loginNgRx(payload).pipe(
+        this.service.login(payload).pipe(
           map(response => {
             return AuthActionUnion.loginSuccess({
               payload: response,
@@ -37,6 +37,7 @@ export class AuthEffects {
         ofType(AuthActionUnion.loginSuccess),
         tap(async () => {
           await this.router.navigateByUrl('');
+
         })
       ),
     { dispatch: false }
@@ -47,7 +48,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActionUnion.logout),
         switchMap(() => {
-          return this.service.logoutNgRx().pipe(
+          return this.service.logout().pipe(
             map(() => {
               this.router.navigateByUrl('login');
             })

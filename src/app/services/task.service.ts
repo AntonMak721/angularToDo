@@ -15,21 +15,18 @@ export class TaskService {
 
   apiUrl = 'https://dummyjson.com/todos/';
 
-  // getTasks() {
-  //   return this.http.get<any>('https://dummyjson.com/todos/user/1')
-  // }
-
   getTasks(id: any): Observable<TaskInterface[]> {
-    const idPayload= id.payload;
-    return this.http.get<any>(`${this.apiUrl}user/${idPayload}`).pipe(
-      map(response => response?.todos))
+    const idPayload = id.payload;
+    return this.http
+      .get<any>(`${this.apiUrl}user/${idPayload}`)
+      .pipe(map(response => response?.todos));
   }
   addTask(task: TaskInterface): Observable<TaskInterface> {
     return this.http.post(`${this.apiUrl}add`, task).pipe(
       map((response: any) => {
         console.log(response);
-        return response}),
-
+        return response;
+      })
     );
   }
 

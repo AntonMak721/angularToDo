@@ -18,26 +18,31 @@ export class ModeSortComponent {
 
   constructor() {}
   activeButton = 'cloudOff';
-  minToMax = true;
+  minToMax = false;
+  comletedFilterIndicator = false;
 
   setActiveButton(buttonId: string): void {
     this.activeButton = buttonId;
   }
   UserID = Number(localStorage.getItem('id'));
   getOnlineTasks() {
-    this.store.dispatch(
-      {type:'[Task] Get all to do by id', payload: this.UserID}
-    )
+    this.store.dispatch({
+      type: '[Task] Get all to do by id',
+      payload: this.UserID,
+    });
   }
   sortByCompleted() {
-    this.store.dispatch({type:'[Task] Filter tasks by completed'})
+    if (this.comletedFilterIndicator) {
+      this.store.dispatch({ type: '[Task] Filter tasks by completed cancel' });
+    } else {
+      this.store.dispatch({ type: '[Task] Filter tasks by completed' });
+    }
   }
   sortById() {
-
     if (this.minToMax) {
-      this.store.dispatch({type:'[Task] Filter tasks by id min to max'})
+      this.store.dispatch({ type: '[Task] Filter tasks by id min to max' });
     } else {
-      this.store.dispatch({type:'[Task] Filter tasks by id max to min'})
+      this.store.dispatch({ type: '[Task] Filter tasks by id max to min' });
     }
   }
 }

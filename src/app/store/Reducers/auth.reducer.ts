@@ -45,6 +45,4 @@ export const authReducer = createReducer(
     isLoading: false,
     isLogged: false,
   }))
-  // on(AuthActionUnion.logoutSuccess, (state)=>({...state,isLoading: false})),
-  // on(AuthActionUnion.logoutFailure, (state,{error})=>({...state,error:error,isLoading: false})),
 );

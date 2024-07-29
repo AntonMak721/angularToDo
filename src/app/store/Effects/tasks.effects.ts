@@ -11,9 +11,10 @@ import {
   tasksLoadingFailure,
   deleteTask,
   updateTask,
-  addTask, addTaskSuccess,
+  addTask,
+  addTaskSuccess,
 } from '../Actions/tasks.action';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TaskInterface } from '../../models/task-interface';
 
 @Injectable()
@@ -28,11 +29,14 @@ export class TasksEffects {
   getAllTasks$ = createEffect(() =>
     this.actions$.pipe(
       ofType('[Task] Get all to do by id'),
-      switchMap(({payload}) =>
-        this.service.getTasks({payload}).pipe(
-          map(response =>{
+      switchMap(({ payload }) =>
+        this.service.getTasks({ payload }).pipe(
+          map(response => {
             const todosFromServer: TaskInterface[] = response;
-            return ({type:'[Task] Get all to do success', payload: todosFromServer})
+            return {
+              type: '[Task] Get all to do success',
+              payload: todosFromServer,
+            };
             console.log(response);
           }),
           catchError(error => of(tasksLoadingFailure({ error })))
@@ -45,40 +49,20 @@ export class TasksEffects {
     () =>
       this.actions$.pipe(
         ofType(getAlltoDoSuccess),
-        tap(async () => {
-        })
+        tap(async () => {})
       ),
     { dispatch: false }
   );
 
-  addTask$ = createEffect(() => this.actions$.pipe(
-    ofType('[Task] Add task'),
-    switchMap(({ payload }) =>
-      this.service.addTask(payload).pipe(
-        map(response => addTaskSuccess({ payload: response })),
-        catchError(error => of(tasksLoadingFailure({ error })))
+  addTask$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType('[Task] Add task'),
+      switchMap(({ payload }) =>
+        this.service.addTask(payload).pipe(
+          map(response => addTaskSuccess({ payload: response })),
+          catchError(error => of(tasksLoadingFailure({ error })))
+        )
       )
     )
-  ));
-
-  // deleteTask$ = createEffect(() => this.actions$.pipe(
-  //   ofType(deleteTask),
-  //   switchMap(({ payload }) =>
-  //     this.service.deleteTask(payload).pipe(
-  //       map(response => response)
-  //     )
-  //   )
-  // ))
-
-  // updateTask$ = createEffect(() => this.actions$.pipe(
-  //   ofType(updateTask),
-  //   switchMap(({ payload }) =>
-  //     this.service.updateTask(payload).pipe(
-  //       map(response => getAlltoDoById({ payload: response.userId })),
-  //       catchError(error => of(tasksLoadingFailure({ error })))
-  //     )
-  //   )
-  // ));
-  //     )
-  // )
+  );
 }

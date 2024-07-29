@@ -31,8 +31,8 @@ import { selectALLTasks } from '../../store/Selectors/tasks.selector';
 export class ToDoPageComponent {
   authService = inject(AuthService);
   store = inject(Store);
-  tasks$ = this.store.select(selectALLTasks)
-  constructor( ) {}
+  tasks$ = this.store.select(selectALLTasks);
+  constructor() {}
   logout() {
     this.store.dispatch(AuthActionUnion.logout());
   }

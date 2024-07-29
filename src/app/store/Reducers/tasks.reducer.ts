@@ -14,8 +14,6 @@ export const initialTasksState: TasksState = {
   tasks: [],
 };
 
-
-
 export const TASK_FEATURE_KEY = 'task';
 
 export const tasksReducer = createReducer(
@@ -29,10 +27,10 @@ export const tasksReducer = createReducer(
     tasks: payload,
     isLoading: false,
   })),
-  on(TasksActionUnion.addTask, (state) => ({
-     ...state,
-     isLoading: true,
-   })),
+  on(TasksActionUnion.addTask, state => ({
+    ...state,
+    isLoading: true,
+  })),
   on(TasksActionUnion.addTaskSuccess, (state, { payload }) => ({
     ...state,
     tasks: [...state.tasks, payload],
@@ -46,36 +44,56 @@ export const tasksReducer = createReducer(
   })),
   on(TasksActionUnion.deleteTask, (state, { payload }) => ({
     ...state,
-    tasks: state.tasks.filter(task => task.id!== payload),
+    tasks: state.tasks.filter(task => task.id !== payload),
     isLoading: false,
   })),
   on(TasksActionUnion.markCompletedTask, (state, { payload }) => ({
     ...state,
-    tasks: state.tasks.map(task => task.id!== payload? task : {...task,completed:!task.completed}),
+    tasks: state.tasks.map(task =>
+      task.id !== payload ? task : { ...task, completed: !task.completed }
+    ),
     isLoading: false,
   })),
   on(TasksActionUnion.updateTask, (state, { payload }) => ({
     ...state,
-    tasks:state.tasks.map(task => task.id!== payload.id ? task : {...task, todo : payload.todo}),
+    tasks: state.tasks.map(task =>
+      task.id !== payload.id ? task : { ...task, todo: payload.todo }
+    ),
     isLoading: false,
   })),
-  on(TasksActionUnion.tasksFilterByCompleted , (state) => ({
-    ...state,
-    isLoading: false,
-    tasks: state.tasks.filter(task => task.completed)
-  })),
+  on(TasksActionUnion.tasksFilterByCompleted, state => {
+    return {
+      ...state,
+      isLoading: false,
+      tasks: [...state.tasks].sort(
+        (a, b) => Number(b.completed) - Number(a.completed)
+      ),
+    };
+  }),
+  on(TasksActionUnion.tasksFilterByCompletedCancel, state => {
+    return {
+      ...state,
+      isLoading: false,
+      tasks: [...state.tasks].sort(
+        (a, b) => Number(a.completed) - Number(b.completed)
+      ),
+    };
+  }),
 
-
-  on(TasksActionUnion.tasksFilterByIdMaxToMin , (state) => ({
-    ...state,
-    isLoading: false,
-    tasks: state.tasks.sort((a, b) => b.id - a.id)
-})),
-  on(TasksActionUnion.tasksFilterByIdMinToMax , (state) => ({
-    ...state,
-    isLoading: false,
-    tasks: state.tasks.sort((a, b) => a.id - b.id)
-  }))
-
-
+  on(TasksActionUnion.tasksFilterByIdMaxToMin, state => {
+    const tasks = [...state.tasks].sort((a, b) => b.id - a.id);
+    return {
+      ...state,
+      isLoading: false,
+      tasks,
+    };
+  }),
+  on(TasksActionUnion.tasksFilterByIdMinToMax, state => {
+    const tasks = [...state.tasks].sort((a, b) => a.id - b.id);
+    return {
+      ...state,
+      isLoading: false,
+      tasks,
+    };
+  })
 );
