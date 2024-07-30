@@ -10,24 +10,43 @@ import { LoginDataInterface } from '../models/login-data-interface';
   providedIn: 'root',
 })
 export class AuthService {
-  http = inject(HttpClient);
-  router = inject(Router);
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
   baseURL = 'https://dummyjson.com/auth/';
 
-  login(payload: { username: string; password: string }) {
-    return this.http.post<LoginDataInterface>(`${this.baseURL}login`, payload).pipe(
-      map((response) => {
-        const user = response as UserInterface;
-        localStorage.setItem('token', user.token);
-        localStorage.setItem('id', user.id.toString());
-        localStorage.setItem('userData', JSON.stringify(user));
-        return user;
-      })
-    );
+  public login(payload: { username: string; password: string }) {
+    return this.http
+      .post<LoginDataInterface>(`${this.baseURL}login`, payload)
+      .pipe(
+        map(response => {
+          const user = response as UserInterface;
+          localStorage.setItem('token', user.token);
+          localStorage.setItem('id', user.id.toString());
+          localStorage.setItem('userData', JSON.stringify(user));
+          return user;
+        })
+      );
   }
 
-  logout() {
+  public logout() {
     return of(localStorage.clear());
+  }
+
+  public auth() {
+    const token = localStorage.getItem('token');
+    return this.http
+      .get<LoginDataInterface>(`${this.baseURL}me`, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .pipe(
+        map(response => {
+          const user = response as UserInterface;
+          localStorage.setItem('id', user.id.toString());
+          return user;
+        })
+      );
   }
 }

@@ -1,43 +1,35 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TaskInterface, tasks } from '../../models/task-interface';
-import { TaskService } from '../../services/task.service';
+import { TaskInterface } from '../../models/task-interface';
 import { Store } from '@ngrx/store';
 import * as TaskActionsUnion from '../../store/Actions/tasks.action';
 import { Observable } from 'rxjs';
-import { TasksState } from '../../store/Reducers/tasks.reducer';
 import { selectALLTasks } from '../../store/Selectors/tasks.selector';
 import { selectUserID } from '../../store/Selectors/auth.selector';
+import { NewTaskInterface } from '../../models/new-task.interface';
 
 @Component({
   selector: 'app-new-task-form',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './newTaskForm.component.html',
-  styleUrls: ['./newTaskForm.component.css'],
+  styleUrls: ['./newTaskForm.component.scss'],
 })
 export class NewTaskFormComponent {
-  fb = inject(FormBuilder);
+  public fb = inject(FormBuilder);
+  private store = inject(Store);
+
+  Tasks$: Observable<TaskInterface[]> = this.store.select(selectALLTasks);
+  UserID$: Observable<number> = this.store.select(selectUserID);
 
   newTaskForm = this.fb.nonNullable.group({
     newTask: ['', [Validators.required, Validators.minLength(4)]],
   });
 
-  taskService = inject(TaskService);
-  Tasks$: Observable<TaskInterface[]>;
-  UserID$: Observable<number>;
-  constructor(public store: Store<TasksState>) {
-    this.Tasks$ = this.store.select(selectALLTasks);
-    this.UserID$ = this.store.select(selectUserID);
-  }
-
-  public tasks: TaskInterface[] = tasks;
-
-  onSubmitNewTask() {
-    const newTask: TaskInterface = {
+  public onSubmitNewTask() {
+    const newTask: NewTaskInterface = {
       todo: this.newTaskForm.value.newTask!,
-      id: Math.floor(Math.random() * 1000),
       completed: false,
       userId: Number(localStorage.getItem('id')),
     };

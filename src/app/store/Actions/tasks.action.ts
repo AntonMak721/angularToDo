@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { TaskInterface } from '../../models/task-interface';
+import { NewTaskInterface } from '../../models/new-task.interface';
 
-interface GetAllToDoById{}
 
 export const getAlltoDoById = createAction(
   '[Task] Get all to do by id',
@@ -19,7 +19,7 @@ export const updateTask = createAction(
 );
 export const addTask = createAction(
   '[Task] Add task',
-  props<{ payload: TaskInterface }>()
+  props<{ payload: NewTaskInterface }>()
 );
 export const addTaskSuccess = createAction(
   '[Task] Add task Success',

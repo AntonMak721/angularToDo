@@ -1,7 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { TaskInterface } from '../../models/task-interface';
 import { NgFor, NgIf, NgClass, AsyncPipe } from '@angular/common';
-import { TaskService } from '../../services/task.service';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -9,24 +8,22 @@ import { Store } from '@ngrx/store';
   standalone: true,
   imports: [NgClass, NgFor, NgIf, AsyncPipe],
   templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.css'],
+  styleUrls: ['./tasks-list.component.scss'],
 })
 export class TasksListComponent {
-  taskService = inject(TaskService);
-  store = inject(Store);
   @Input() tasks: TaskInterface[];
-  markComplete(id: number) {
+  private store = inject(Store);
+
+  public markComplete(id: number) {
     this.store.dispatch({ type: '[Task] Mark complete task', payload: id });
   }
-  deleteTask(id: number) {
+  public deleteTask(id: number) {
     this.store.dispatch({ type: '[Task] Delete task', payload: id });
   }
 
-  edit(task: TaskInterface) {
+  public edit(task: TaskInterface) {
     const id = task.id;
-    console.log(id);
     const updateTaskText = document.getElementById(`${id}`)?.innerHTML;
-    console.log(updateTaskText);
     const newTask = {
       id: task.id,
       todo: updateTaskText,

@@ -13,17 +13,18 @@ import { TaskInterface } from '../../models/task-interface';
 
 @Injectable()
 export class TasksEffects {
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
   private actions$ = inject(Actions);
   private service = inject(TaskService);
 
-  getAllTasks$ = createEffect(() =>
+  public getAllTasks$ = createEffect(() =>
     this.actions$.pipe(
       ofType('[Task] Get all to do by id'),
-      switchMap(( payload: number ) =>
+      switchMap(({ payload }) =>
         this.service.getTasks(payload).pipe(
           map(response => {
-            const todosFromServer: TaskInterface[] = response as TaskInterface[];
+            const todosFromServer: TaskInterface[] =
+              response as TaskInterface[];
             return {
               type: '[Task] Get all to do success',
               payload: todosFromServer,
@@ -35,12 +36,12 @@ export class TasksEffects {
     )
   );
 
-  tasksSuccess$ = createEffect(
+  public tasksSuccess$ = createEffect(
     () => this.actions$.pipe(ofType(getAlltoDoSuccess), tap()),
     { dispatch: false }
   );
 
-  addTask$ = createEffect(() =>
+  public addTask$ = createEffect(() =>
     this.actions$.pipe(
       ofType('[Task] Add task'),
       switchMap(({ payload }) =>

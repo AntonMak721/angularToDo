@@ -12,12 +12,12 @@ import {
   standalone: true,
   imports: [AsyncPipe, NgFor, NgIf, NgClass],
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
-  store = inject(Store);
+  private store = inject(Store);
 
-  firstName$ = this.store.select(selectUserFirstName);
-  lastName$ = this.store.select(selectUserLastName);
-  userImg$ = this.store.select(selectUserImg);
+  public firstName$ = this.store.select(selectUserFirstName);
+  public lastName$ = this.store.select(selectUserLastName);
+  public userImg$ = this.store.select(selectUserImg);
 }

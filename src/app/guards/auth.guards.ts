@@ -11,8 +11,6 @@ export const canActivateAuth = async () => {
     router.navigate(['/login']);
     return false;
   }
-
-  const userData = JSON.parse(localStorage.getItem('userData'));
-  store.dispatch(AuthActionUnion.browserReload({ payload: userData }));
+  store.dispatch(AuthActionUnion.auth());
   return true;
 };

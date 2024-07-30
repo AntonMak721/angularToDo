@@ -12,7 +12,7 @@ export class AuthEffects {
   private router = inject(Router);
   private service = inject(AuthService);
 
-  login$ = createEffect(() =>
+  public login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActionUnion.login),
       switchMap(({ payload }) =>
@@ -28,7 +28,7 @@ export class AuthEffects {
     )
   );
 
-  loginSuccess$ = createEffect(
+  public loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActionUnion.loginSuccess),
@@ -39,7 +39,7 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  logout$ = createEffect(
+  public logout$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActionUnion.logout),
@@ -52,5 +52,21 @@ export class AuthEffects {
         })
       ),
     { dispatch: false }
+  );
+
+  public auth$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionUnion.auth),
+      switchMap(() =>
+        this.service.auth().pipe(
+          map(response => {
+            return AuthActionUnion.authSuccess({
+              payload: response,
+            });
+          }),
+          catchError(error => of(AuthActionUnion.loginFailure({ error })))
+        )
+      )
+    )
   );
 }

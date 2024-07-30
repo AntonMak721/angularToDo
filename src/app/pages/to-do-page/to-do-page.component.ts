@@ -1,10 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
 import { TasksListComponent } from '../../components/tasks-list/tasks-list.component';
 import { NewTaskFormComponent } from '../../components/newTaskForm/newTaskForm.component';
 import { UserComponent } from '../../components/user/user.component';
 import { ModeSortComponent } from '../../components/modeSort/modeSort.component';
-import { AuthService } from '../../services/auth.service';
 import { NgFor, NgClass, AsyncPipe, NgForOf } from '@angular/common';
 import { Store } from '@ngrx/store';
 import * as AuthActionUnion from '../../store/Actions/auth.actions';
@@ -14,7 +12,6 @@ import { selectALLTasks } from '../../store/Selectors/tasks.selector';
   selector: 'app-to-do-page',
   standalone: true,
   imports: [
-    ButtonComponent,
     NgClass,
     TasksListComponent,
     NewTaskFormComponent,
@@ -28,10 +25,9 @@ import { selectALLTasks } from '../../store/Selectors/tasks.selector';
   styleUrl: './to-do-page.component.scss',
 })
 export class ToDoPageComponent {
-  authService = inject(AuthService);
-  store = inject(Store);
-  tasks$ = this.store.select(selectALLTasks);
-  logout() {
+  private store = inject(Store);
+  public tasks$ = this.store.select(selectALLTasks);
+  public logout() {
     this.store.dispatch(AuthActionUnion.logout());
   }
 }

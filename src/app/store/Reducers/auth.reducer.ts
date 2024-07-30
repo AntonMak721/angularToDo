@@ -43,7 +43,11 @@ export const authReducer = createReducer(
     error: error,
     isLoading: false,
   })),
-  on(AuthActionUnion.browserReload, (state, { payload }) => ({
+  on(AuthActionUnion.auth, state => ({
+    ...state,
+    isLoading: true,
+  })),
+  on(AuthActionUnion.authSuccess, (state, { payload }) => ({
     ...state,
     user: payload,
     isLogged: true,
