@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
 import * as AuthActionUnion from '../../store/Actions/auth.actions';
-import { LoginDataInterface } from '../../models/loginData-interface';
+import { LoginDataInterface } from '../../models/login-data-interface';
 
 @Component({
   selector: 'app-login',

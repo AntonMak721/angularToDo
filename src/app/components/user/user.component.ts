@@ -1,7 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../store/Reducers/auth.reducer';
 import { AsyncPipe, NgFor, NgIf, NgClass } from '@angular/common';
 import {
   selectUserFirstName,
@@ -18,7 +16,6 @@ import {
 })
 export class UserComponent {
   store = inject(Store);
-  constructor() {}
 
   firstName$ = this.store.select(selectUserFirstName);
   lastName$ = this.store.select(selectUserLastName);

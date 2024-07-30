@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as AuthActionUnion from '../Actions/auth.actions';
 import { UserInterface } from '../../models/user-interface';
 
@@ -14,13 +14,16 @@ export const initialAuthState: AuthState = {
   isLoading: false,
   error: '',
   user: {
-    UserId: 0,
+    id: 0,
     firstName: '',
     lastName: '',
     username: '',
     token: '',
     password: '',
     image: '',
+    email: '',
+    gender: '',
+    refreshToken: '',
   },
 };
 

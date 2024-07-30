@@ -7,7 +7,6 @@ import { ModeSortComponent } from '../../components/modeSort/modeSort.component'
 import { AuthService } from '../../services/auth.service';
 import { NgFor, NgClass, AsyncPipe, NgForOf } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 import * as AuthActionUnion from '../../store/Actions/auth.actions';
 import { selectALLTasks } from '../../store/Selectors/tasks.selector';
 
@@ -32,7 +31,6 @@ export class ToDoPageComponent {
   authService = inject(AuthService);
   store = inject(Store);
   tasks$ = this.store.select(selectALLTasks);
-  constructor() {}
   logout() {
     this.store.dispatch(AuthActionUnion.logout());
   }

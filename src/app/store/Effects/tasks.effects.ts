@@ -1,17 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, catchError, switchMap, tap } from 'rxjs/operators';
-import { pipe } from 'rxjs';
 import { of } from 'rxjs';
 import { TaskService } from '../../services/task.service';
-import { Router } from '@angular/router';
 import {
   getAlltoDoSuccess,
-  getAlltoDoById,
   tasksLoadingFailure,
-  deleteTask,
-  updateTask,
-  addTask,
   addTaskSuccess,
 } from '../Actions/tasks.action';
 import { HttpClient } from '@angular/common/http';
@@ -19,25 +13,21 @@ import { TaskInterface } from '../../models/task-interface';
 
 @Injectable()
 export class TasksEffects {
-  constructor() {}
-
   http = inject(HttpClient);
   private actions$ = inject(Actions);
-  private router = inject(Router);
   private service = inject(TaskService);
 
   getAllTasks$ = createEffect(() =>
     this.actions$.pipe(
       ofType('[Task] Get all to do by id'),
-      switchMap(({ payload }) =>
-        this.service.getTasks({ payload }).pipe(
+      switchMap(( payload: number ) =>
+        this.service.getTasks(payload).pipe(
           map(response => {
-            const todosFromServer: TaskInterface[] = response;
+            const todosFromServer: TaskInterface[] = response as TaskInterface[];
             return {
               type: '[Task] Get all to do success',
               payload: todosFromServer,
             };
-            console.log(response);
           }),
           catchError(error => of(tasksLoadingFailure({ error })))
         )
@@ -46,11 +36,7 @@ export class TasksEffects {
   );
 
   tasksSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(getAlltoDoSuccess),
-        tap(async () => {})
-      ),
+    () => this.actions$.pipe(ofType(getAlltoDoSuccess), tap()),
     { dispatch: false }
   );
 

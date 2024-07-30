@@ -8,29 +8,28 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class TaskService {
-  constructor() {}
-
   http = inject(HttpClient);
   public tasks: TaskInterface[] = tasks;
 
   apiUrl = 'https://dummyjson.com/todos/';
 
-  getTasks(id: any): Observable<TaskInterface[]> {
-    const idPayload = id.payload;
+  getTasks(id: number): Observable<TaskInterface[]> {
+    console.log(id);
     return this.http
-      .get<any>(`${this.apiUrl}user/${idPayload}`)
+      .get<{
+      todos: TaskInterface[];
+      }>(`${this.apiUrl}user/${id}`)
       .pipe(map(response => response?.todos));
   }
   addTask(task: TaskInterface): Observable<TaskInterface> {
-    return this.http.post(`${this.apiUrl}add`, task).pipe(
-      map((response: any) => {
-        console.log(response);
-        return response;
+    return this.http.post<TaskInterface>(`${this.apiUrl}add`, task).pipe(
+      map((response: TaskInterface) => {
+        return response as TaskInterface;
       })
     );
   }
 
-  deleteTask(id: number): Observable<any> {
+  deleteTask(id: number): Observable<object> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
   }

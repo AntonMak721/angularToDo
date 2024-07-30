@@ -7,7 +7,7 @@ export interface State {
   task: TasksState;
 }
 
-export const reducers: ActionReducerMap<State, any> = {
+export const reducers: ActionReducerMap<State> = {
   auth: authReducer,
   task: tasksReducer,
 };

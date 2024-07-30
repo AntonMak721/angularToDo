@@ -31,5 +31,5 @@ export const selectUserImg = createSelector(selectAuthState, state => {
 });
 export const selectUserID = createSelector(
   selectAuthState,
-  state => state.user.UserId
+  state => state.user.id
 );

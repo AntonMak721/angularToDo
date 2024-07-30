@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { TaskInterface } from '../../models/task-interface';
 
+interface GetAllToDoById{}
+
 export const getAlltoDoById = createAction(
   '[Task] Get all to do by id',
   props<{ payload: number }>()

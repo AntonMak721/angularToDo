@@ -1,30 +1,28 @@
-import { Injectable, signal, inject } from '@angular/core';
-import { UserInterface } from '../models/user-interface';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { AuthState } from '../store/Reducers/auth.reducer';
 import { of } from 'rxjs';
+import { UserInterface } from '../models/user-interface';
+import { LoginDataInterface } from '../models/login-data-interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
-
   http = inject(HttpClient);
   router = inject(Router);
 
   baseURL = 'https://dummyjson.com/auth/';
 
   login(payload: { username: string; password: string }) {
-    return this.http.post(`${this.baseURL}login`, payload).pipe(
-      map((response: any) => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('id', response.id);
-        localStorage.setItem('userData', JSON.stringify(response));
-        console.log(response);
-        return response;
+    return this.http.post<LoginDataInterface>(`${this.baseURL}login`, payload).pipe(
+      map((response) => {
+        const user = response as UserInterface;
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('id', user.id.toString());
+        localStorage.setItem('userData', JSON.stringify(user));
+        return user;
       })
     );
   }

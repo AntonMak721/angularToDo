@@ -26,7 +26,6 @@
         id="cloudOn"
         class="p-2 bg-button rounded-xl hover:bg-ButtonHoverOrFocus active:bg-ButtonActive"
         type="button"
-        (click)="setActiveButton('cloudOn')"
         (click)="getOnlineTasks()"
         [ngClass]="{
           'bg-button': activeButton === 'cloudOn',
@@ -50,7 +49,6 @@
     <div class="flex justify-center items-center gap-1">
       <button
         (click)="sortById()"
-        (click)="minToMax = !minToMax"
         class="p-2 bg-button rounded-xl cursor-pointer hover:bg-ButtonHoverOrFocus active:bg-ButtonActive"
         type="button">
         <svg
@@ -66,7 +64,6 @@
       </button>
       <button
         (click)="sortByCompleted()"
-        (click)="comletedFilterIndicator = !comletedFilterIndicator"
         class="p-2 bg-button rounded-xl cursor-pointer hover:bg-ButtonHoverOrFocus active:bg-ButtonActive"
         type="button">
         <svg
